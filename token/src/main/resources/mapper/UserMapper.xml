@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxl.token.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="com.wxl.token.entity.User">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="last_error_date" jdbcType="TIMESTAMP" property="lastErrorDate"/>
+        <result column="error_count" jdbcType="INTEGER" property="errorCount"/>
+        <result column="status" jdbcType="TINYINT" property="status"/>
+        <result column="del_flag" jdbcType="TINYINT" property="delFlag"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, user_name, password, last_error_date, error_count, status, del_flag
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_user
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="getByLoginName" resultType="com.wxl.token.entity.User">
+        select *
+        from t_user
+        where user_name = #{loginName}
+    </select>
+    <insert id="insert" parameterType="com.wxl.token.entity.User">
+        insert into t_user (id, user_name, password,
+                            last_error_date, error_count, status,
+                            del_flag)
+        values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+                #{lastErrorDate,jdbcType=TIMESTAMP}, #{errorCount,jdbcType=INTEGER}, #{status,jdbcType=TINYINT},
+                #{delFlag,jdbcType=TINYINT})
+    </insert>
+    <insert id="insertSelective" parameterType="com.wxl.token.entity.User">
+        insert into t_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="userName != null">
+                user_name,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="lastErrorDate != null">
+                last_error_date,
+            </if>
+            <if test="errorCount != null">
+                error_count,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="delFlag != null">
+                del_flag,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="lastErrorDate != null">
+                #{lastErrorDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="errorCount != null">
+                #{errorCount,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=TINYINT},
+            </if>
+            <if test="delFlag != null">
+                #{delFlag,jdbcType=TINYINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.wxl.token.entity.User">
+        update t_user
+        <set>
+            <if test="userName != null">
+                user_name = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="lastErrorDate != null">
+                last_error_date = #{lastErrorDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="errorCount != null">
+                error_count = #{errorCount,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=TINYINT},
+            </if>
+            <if test="delFlag != null">
+                del_flag = #{delFlag,jdbcType=TINYINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.wxl.token.entity.User">
+        update t_user
+        set user_name       = #{userName,jdbcType=VARCHAR},
+            password        = #{password,jdbcType=VARCHAR},
+            last_error_date = #{lastErrorDate,jdbcType=TIMESTAMP},
+            error_count     = #{errorCount,jdbcType=INTEGER},
+            status          = #{status,jdbcType=TINYINT},
+            del_flag        = #{delFlag,jdbcType=TINYINT}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateErrorCount">
+        update t_user
+        set error_count     = #{errorCount},
+            last_error_date = #{lastErrorDate}
+        where id = #{id}
+    </update>
+</mapper>
