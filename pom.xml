@@ -21,6 +21,7 @@
         <module>token</module>
         <module>shiro</module>
         <module>redis</module>
+        <module>transaction</module>
     </modules>
 
     <repositories>
