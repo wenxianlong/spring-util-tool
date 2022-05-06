@@ -20,6 +20,7 @@
     <modules>
         <module>token</module>
         <module>shiro</module>
+        <module>redis</module>
     </modules>
 
     <repositories>
