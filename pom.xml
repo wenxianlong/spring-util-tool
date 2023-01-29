@@ -18,6 +18,7 @@
     </properties>
 
     <modules>
+        <module>mq</module>
         <module>token</module>
         <module>shiro</module>
         <module>redis</module>
